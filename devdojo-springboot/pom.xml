@@ -48,6 +48,14 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- <plugin>
+				<groupId>org.apache.mavem.plugins</groupId>
+				<artifactId>mavem-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin> -->
 		</plugins>
 	</build>
 
