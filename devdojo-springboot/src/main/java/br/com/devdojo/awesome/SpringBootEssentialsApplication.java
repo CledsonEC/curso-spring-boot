@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 //Quando utiliza SpringBootApplication está utilizando @EnableAutoConfiguration,@ComponentScan e @Configuration  
 
 @SpringBootApplication
-public class ApplicationStart {
+public class SpringBootEssentialsApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(ApplicationStart.class, args);
+		SpringApplication.run(SpringBootEssentialsApplication.class, args);
 	}
 }
