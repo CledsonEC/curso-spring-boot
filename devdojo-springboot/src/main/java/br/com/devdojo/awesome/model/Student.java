@@ -25,7 +25,6 @@ public class Student {
 	}
 	
 	public Student(){
-		
 	}
 	
 	private static void studentRepository() {
