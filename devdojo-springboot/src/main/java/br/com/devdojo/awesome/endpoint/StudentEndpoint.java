@@ -43,9 +43,14 @@ public class StudentEndpoint {
 		return new ResponseEntity<>(student, HttpStatus.OK);
 	}
 	
+	@GetMapping(path = "/findByName/{name}")
+	public ResponseEntity<?> findStudentByName(@PathVariable String name){
+		return new ResponseEntity<>(studentDAO.findByName(name), HttpStatus.OK);
+	}
+	
 	@PostMapping
 	public ResponseEntity<?> save(@RequestBody Student student){
-		return new ResponseEntity<>(studentDAO.save(student), HttpStatus.OK);
+		return new ResponseEntity<>(studentDAO.save(student), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping(path = "/{id}")
