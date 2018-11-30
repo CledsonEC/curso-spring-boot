@@ -1,8 +1,6 @@
 package br.com.devdojo.awesome.endpoint;
 
-import java.util.List;
-import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,56 +12,51 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.devdojo.awesome.error.CustomErrorType;
 import br.com.devdojo.awesome.model.Student;
-import br.com.devdojo.awesome.util.DateUtil;
+import br.com.devdojo.awesome.repository.StudentRepository;
 
 @RestController
 @RequestMapping("students")
 public class StudentEndpoint {
 
-	@Autowired
-	private DateUtil dateUtil;
+	private final StudentRepository studentDAO;
 	
-	public StudentEndpoint(DateUtil dateUtil) {
-		this.dateUtil = dateUtil;
+	@Autowired
+	public StudentEndpoint(StudentRepository studentDAOl) {
+		this.studentDAO = studentDAOl;
 	}
 	
 	@GetMapping
 	public ResponseEntity<?> listAll(){
-		return new ResponseEntity<>(Student.studentList,HttpStatus.OK);
+		return new ResponseEntity<>(studentDAO.findAll(),HttpStatus.OK);
 	}
 	
 	@GetMapping( path ="/{id}")
-	public ResponseEntity<?> getStudentById(@PathVariable("id") int id){
-		Student student = new Student();
-		student.setId(id);
-		int index = Student.studentList.indexOf(student);
+	public ResponseEntity<?> getStudentById(@PathVariable("id") long id){
+		Optional<Student> student = studentDAO.findById(id);
 		
-		if(index == -1)
+		if(student == null)
 			return new ResponseEntity<>(new CustomErrorType("Student not found"), HttpStatus.NOT_FOUND);		
-		return new ResponseEntity<>(Student.studentList.get(index), HttpStatus.OK);
+		return new ResponseEntity<>(student, HttpStatus.OK);
 	}
 	
 	@PostMapping
 	public ResponseEntity<?> save(@RequestBody Student student){
-		Student.studentList.add(student);
-		return new ResponseEntity<>(student, HttpStatus.OK);
+		return new ResponseEntity<>(studentDAO.save(student), HttpStatus.OK);
 	}
 	
-	@DeleteMapping
-	public ResponseEntity<?> delete(@RequestBody Student student){
-		Student.studentList.remove(student);
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity<?> delete(@PathVariable long id){
+		studentDAO.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@PutMapping
 	public ResponseEntity<?> update(@RequestBody Student student){
-		Student.studentList.remove(student);
-		Student.studentList.add(student);
+		studentDAO.save(student);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
