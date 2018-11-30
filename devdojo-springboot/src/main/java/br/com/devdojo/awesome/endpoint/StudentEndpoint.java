@@ -23,46 +23,45 @@ import br.com.devdojo.awesome.repository.StudentRepository;
 public class StudentEndpoint {
 
 	private final StudentRepository studentDAO;
-	
+
 	@Autowired
 	public StudentEndpoint(StudentRepository studentDAOl) {
 		this.studentDAO = studentDAOl;
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<?> listAll(){
-		return new ResponseEntity<>(studentDAO.findAll(),HttpStatus.OK);
+	public ResponseEntity<?> listAll() {
+		return new ResponseEntity<>(studentDAO.findAll(), HttpStatus.OK);
 	}
-	
-	@GetMapping( path ="/{id}")
-	public ResponseEntity<?> getStudentById(@PathVariable("id") long id){
+
+	@GetMapping(path = "/{id}")
+	public ResponseEntity<?> getStudentById(@PathVariable("id") long id) {
 		Optional<Student> student = studentDAO.findById(id);
-		
-		if(student == null)
-			return new ResponseEntity<>(new CustomErrorType("Student not found"), HttpStatus.NOT_FOUND);		
+
+		if (student == null)
+			return new ResponseEntity<>(new CustomErrorType("Student not found"), HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(student, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(path = "/findByName/{name}")
-	public ResponseEntity<?> findStudentByName(@PathVariable String name){
+	public ResponseEntity<?> findStudentByName(@PathVariable String name) {
 		return new ResponseEntity<>(studentDAO.findByNameIgnoreCaseContaining(name), HttpStatus.OK);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<?> save(@RequestBody Student student){
+	public ResponseEntity<?> save(@RequestBody Student student) {
 		return new ResponseEntity<>(studentDAO.save(student), HttpStatus.CREATED);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<?> delete(@PathVariable long id){
+	public ResponseEntity<?> delete(@PathVariable long id) {
 		studentDAO.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<?> update(@RequestBody Student student){
+	public ResponseEntity<?> update(@RequestBody Student student) {
 		studentDAO.save(student);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
 }
