@@ -2,7 +2,7 @@ package br.com.devdojo.awesome.error;
 
 import br.com.devdojo.awesome.error.ResourceNotFoundDetails.Builder;
 
-public class ValidationErrorDetails extends ErroDetails {
+public class ValidationErrorDetails extends ErrorDetails {
 	private String field;
 	private String fieldMessage;
 	
