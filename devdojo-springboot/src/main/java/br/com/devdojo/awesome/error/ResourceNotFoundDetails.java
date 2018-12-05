@@ -2,57 +2,7 @@ package br.com.devdojo.awesome.error;
 
 import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
 
-public class ResourceNotFoundDetails {
-	
-	private String title;
-	private int status;
-	private String detail;
-	private long timeStamp;
-	private String developerMessage;
-
-	private ResourceNotFoundDetails() {
-		
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public String getDetail() {
-		return detail;
-	}
-
-	public long getTimeStamp() {
-		return timeStamp;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public void setDetail(String detail) {
-		this.detail = detail;
-	}
-
-	public void setTimeStamp(long timeStamp) {
-		this.timeStamp = timeStamp;
-	}
-
-	public void setDeveloperMessage(String developerMessage) {
-		this.developerMessage = developerMessage;
-	}
-
-	public String getDeveloperMessage() {
-		return developerMessage;
-	}
+public class ResourceNotFoundDetails extends ErroDetail {
 	
 	public static final class Builder
 	{
