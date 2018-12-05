@@ -32,7 +32,7 @@ public class RestExceptionHandler {
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<?> MethodArgumentNotValidException(MethodArgumentNotValidException manvException){
+	public ResponseEntity<?> handlerMethodArgumentNotValidException(MethodArgumentNotValidException manvException){
 		
 		List<FieldError> fildErros = manvException.getBindingResult().getFieldErrors();
 		String fields = fildErros.stream().map(FieldError::getField).collect(Collectors.joining(","));
