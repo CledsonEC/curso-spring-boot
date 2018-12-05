@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.devdojo.awesome.error.CustomErrorType;
 import br.com.devdojo.awesome.error.ResourceNotFoundException;
 import br.com.devdojo.awesome.model.Student;
 import br.com.devdojo.awesome.repository.StudentRepository;
@@ -34,8 +34,8 @@ public class StudentEndpoint {
 	}
 
 	@GetMapping
-	public ResponseEntity<?> listAll() {
-		return new ResponseEntity<>(studentDAO.findAll(), HttpStatus.OK);
+	public ResponseEntity<?> listAll(Pageable pageable) {
+		return new ResponseEntity<>(studentDAO.findAll(pageable), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/{id}")
