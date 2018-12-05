@@ -48,7 +48,6 @@ public class RestExceptionHandler {
 				.field(fields)
 				.fieldMessage(fieldMessages)
 				.build();
-	
 		
 		return new ResponseEntity<>(rfnDetails, HttpStatus.BAD_REQUEST);
 	}

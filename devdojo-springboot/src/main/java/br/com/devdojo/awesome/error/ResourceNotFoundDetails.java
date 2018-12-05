@@ -2,7 +2,7 @@ package br.com.devdojo.awesome.error;
 
 import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
 
-public class ResourceNotFoundDetails extends ErroDetail {
+public class ResourceNotFoundDetails extends ErroDetails {
 	
 	public static final class Builder
 	{
