@@ -3,6 +3,7 @@ package br.com.devdojo.awesome.endpoint;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,7 +52,7 @@ public class StudentEndpoint {
 
 	@PostMapping
 	@Transactional //Caso tenha alguma excessão não será feiro o commit
-	public ResponseEntity<?> save(@RequestBody Student student) {
+	public ResponseEntity<?> save(@Valid @RequestBody Student student) {
 		return new ResponseEntity<>(studentDAO.save(student), HttpStatus.CREATED);
 	}
 
