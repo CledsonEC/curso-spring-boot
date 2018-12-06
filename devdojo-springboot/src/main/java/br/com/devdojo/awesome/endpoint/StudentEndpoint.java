@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,8 +42,10 @@ public class StudentEndpoint {
 	}
 
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<?> getStudentById(@PathVariable("id") long id) {
+	public ResponseEntity<?> getStudentById(@PathVariable("id") long id,
+				@AuthenticationPrincipal UserDetails userDetails) {
 		verifyIfStudentExists(id);
+		System.out.println(userDetails);
 		Optional<Student> student = studentDAO.findById(id);
 		return new ResponseEntity<>(student, HttpStatus.OK);
 	}
@@ -55,8 +60,9 @@ public class StudentEndpoint {
 	public ResponseEntity<?> save(@Valid @RequestBody Student student) {
 		return new ResponseEntity<>(studentDAO.save(student), HttpStatus.CREATED);
 	}
-
+	
 	@DeleteMapping(path = "/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> delete(@PathVariable long id) {
 		verifyIfStudentExists(id);
 		studentDAO.deleteById(id);
