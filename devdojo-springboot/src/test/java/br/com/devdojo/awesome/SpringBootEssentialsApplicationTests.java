@@ -1,4 +1,4 @@
-package br.com.devdojo;
+package br.com.devdojo.awesome;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
