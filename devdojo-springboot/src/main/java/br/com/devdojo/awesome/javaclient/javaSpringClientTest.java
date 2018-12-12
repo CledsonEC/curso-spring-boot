@@ -13,8 +13,8 @@ public class javaSpringClientTest {
 		studentPost.setEmail("b@b.com");
 		javaClientDAO dao = new javaClientDAO();
 		//System.out.println(dao.findById(1));
-		//List<Student> students = dao.listAll();
-		//System.out.println(dao.listAll());
+		List<Student> students = dao.listAll();
+		System.out.println(dao.listAll());
 		//System.out.println(dao.save(studentPost));
 		//studentPost.setId(29L);
 		//dao.update(studentPost);

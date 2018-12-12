@@ -34,12 +34,12 @@ public class javaClientDAO {
 		return student;
 	}
 
-	public List<Student> listAll() {
-		ResponseEntity<PageableResponse<Student>> exchange = restTemplate.exchange("/", HttpMethod.GET, null,
-				new ParameterizedTypeReference<PageableResponse<Student>>() {
-				});
-		return exchange.getBody().getContent();
-	}
+    public List<Student> listAll() {
+        ResponseEntity<PageableResponse<Student>> exchange = restTemplate.exchange("/", HttpMethod.GET, null,
+                new ParameterizedTypeReference<PageableResponse<Student>>() {
+                });
+        return exchange.getBody().getContent();
+    }
 
 	public Student save(Student student) {
 		ResponseEntity<Student> exchangePost = restTemplateAdmin.exchange("/", HttpMethod.POST,
