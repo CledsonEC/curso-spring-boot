@@ -13,7 +13,7 @@ public class AbstractEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
-	private Long id;
+	protected Long id;
 	 
 	@Override
 	public boolean equals(Object obj) {
