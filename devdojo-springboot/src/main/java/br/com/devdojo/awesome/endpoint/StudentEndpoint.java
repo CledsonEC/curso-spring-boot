@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.devdojo.awesome.error.ResourceNotFoundException;
 import br.com.devdojo.awesome.model.Student;
 import br.com.devdojo.awesome.repository.StudentRepository;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("v1")
@@ -38,6 +39,7 @@ public class StudentEndpoint {
 	}
 
 	@GetMapping(path = "protected/students")
+	@ApiOperation(value = "Return a list with all students", response = Student[].class)
 	public ResponseEntity<?> listAll(Pageable pageable) {
 		return new ResponseEntity<>(studentDAO.findAll(pageable), HttpStatus.OK);
 	}
