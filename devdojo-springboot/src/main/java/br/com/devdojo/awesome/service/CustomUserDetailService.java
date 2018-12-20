@@ -18,7 +18,7 @@ import br.com.devdojo.awesome.repository.UserRepository;
 public class CustomUserDetailService implements UserDetailsService {
 
 	private final UserRepository userRepository;
-	
+
 	@Autowired
 	public CustomUserDetailService(UserRepository userRepository) {
 		super();
@@ -28,14 +28,13 @@ public class CustomUserDetailService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = Optional.ofNullable(userRepository.findByUsername(username))
-					.orElseThrow( () -> new UsernameNotFoundException("User not found"));
-		
-		List<GrantedAuthority> authorityAdmin =  AuthorityUtils.createAuthorityList("ROLE_USER","ROLE_ADMIN");
-		List<GrantedAuthority> authorityUser =  AuthorityUtils.createAuthorityList("ROLE_USER");
-		
-		
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), 
-					user.getPassword(), user.isAdmin() ? authorityAdmin : authorityUser);
+				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+		List<GrantedAuthority> authorityAdmin = AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN");
+		List<GrantedAuthority> authorityUser = AuthorityUtils.createAuthorityList("ROLE_USER");
+
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+				user.isAdmin() ? authorityAdmin : authorityUser);
 	}
 
 }

@@ -11,5 +11,5 @@ public class DateUtil {
 	public String formatLocalDateTimeToDatabaseStyle(LocalDateTime localDateTime) {
 		return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(localDateTime);
 	}
-	
+
 }

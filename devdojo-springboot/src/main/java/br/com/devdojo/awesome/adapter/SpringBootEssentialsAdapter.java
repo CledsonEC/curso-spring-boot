@@ -18,8 +18,5 @@ public class SpringBootEssentialsAdapter extends WebMvcConfigurerAdapter{
 		phmar.setFallbackPageable(new PageRequest(0, 5));
 		
 		argumentResolvers.add(phmar);
-		
-		
 	}
-
 }

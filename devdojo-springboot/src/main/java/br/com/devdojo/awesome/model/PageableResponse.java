@@ -1,5 +1,12 @@
 package br.com.devdojo.awesome.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,31 +14,24 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import br.com.devdojo.awesome.util.CustomSortDeserializer;
 
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-
-import java.util.ArrayList;
-import java.util.List;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PageableResponse<T> extends PageImpl<T> {
-    private boolean last;
-    private boolean first;
-    private int totalPages;
-    
-    private static final long serialVersionUID = 1L;
-    private int number;
-    private int size;
-    private int numberOfElements;
-    private long totalElements;
-    private boolean previousPage;
-    private boolean firstPage;
-    private boolean nextPage;
-    private boolean lastPage;
-    private List<T> content;
-    public int getNumber() {
+	private boolean last;
+	private boolean first;
+	private int totalPages;
+
+	private static final long serialVersionUID = 1L;
+	private int number;
+	private int size;
+	private int numberOfElements;
+	private long totalElements;
+	private boolean previousPage;
+	private boolean firstPage;
+	private boolean nextPage;
+	private boolean lastPage;
+	private List<T> content;
+
+	public int getNumber() {
 		return number;
 	}
 
@@ -117,44 +117,41 @@ public class PageableResponse<T> extends PageImpl<T> {
 
 	private Sort sort;
 
-    public PageableResponse(@JsonProperty("content") List<T> content,
-                            @JsonProperty("number") int page,
-                            @JsonProperty("size") int size,
-                            @JsonProperty("totalElements") long totalElements,
-                            @JsonProperty("sort") @JsonDeserialize(using = CustomSortDeserializer.class)
-                                    Sort sort) {
-        super(content, new PageRequest(page, size,sort), totalElements);
-    }
-    
-    @JsonCreator
-    public PageableResponse() {
-        super(new ArrayList<>());
-    }
+	public PageableResponse(@JsonProperty("content") List<T> content, @JsonProperty("number") int page,
+			@JsonProperty("size") int size, @JsonProperty("totalElements") long totalElements,
+			@JsonProperty("sort") @JsonDeserialize(using = CustomSortDeserializer.class) Sort sort) {
+		super(content, new PageRequest(page, size, sort), totalElements);
+	}
 
-    @Override
-    public boolean isLast() {
-        return last;
-    }
+	@JsonCreator
+	public PageableResponse() {
+		super(new ArrayList<>());
+	}
 
-    public void setLast(boolean last) {
-        this.last = last;
-    }
+	@Override
+	public boolean isLast() {
+		return last;
+	}
 
-    @Override
-    public boolean isFirst() {
-        return first;
-    }
+	public void setLast(boolean last) {
+		this.last = last;
+	}
 
-    public void setFirst(boolean first) {
-        this.first = first;
-    }
+	@Override
+	public boolean isFirst() {
+		return first;
+	}
 
-    @Override
-    public int getTotalPages() {
-        return totalPages;
-    }
+	public void setFirst(boolean first) {
+		this.first = first;
+	}
 
-    public void setTotalPages(int totalPages) {
-        this.totalPages = totalPages;
-    }
+	@Override
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
 }

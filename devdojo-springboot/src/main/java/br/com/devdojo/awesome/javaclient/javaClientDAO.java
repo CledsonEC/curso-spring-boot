@@ -17,15 +17,11 @@ import br.com.devdojo.awesome.model.Student;
 
 public class javaClientDAO {
 	private RestTemplate restTemplate = new RestTemplateBuilder().rootUri("http://localhost:8081/v1/protected/students")
-			.basicAuthentication("cledson", "devdojo")
-			.errorHandler(new RestResponseExceptionHandler())
-			.build();
+			.basicAuthentication("cledson", "devdojo").errorHandler(new RestResponseExceptionHandler()).build();
 
 	private RestTemplate restTemplateAdmin = new RestTemplateBuilder()
-			.rootUri("http://localhost:8081/v1/admin/students")
-			.basicAuthentication("cledson", "devdojo")
-			.errorHandler(new RestResponseExceptionHandler())
-			.build();
+			.rootUri("http://localhost:8081/v1/admin/students").basicAuthentication("cledson", "devdojo")
+			.errorHandler(new RestResponseExceptionHandler()).build();
 
 	public Student findById(long id) {
 		Student student = restTemplate.getForObject("/{id}", Student.class, id);
@@ -34,12 +30,12 @@ public class javaClientDAO {
 		return student;
 	}
 
-    public List<Student> listAll() {
-        ResponseEntity<PageableResponse<Student>> exchange = restTemplate.exchange("/", HttpMethod.GET, null,
-                new ParameterizedTypeReference<PageableResponse<Student>>() {
-                });
-        return exchange.getBody().getContent();
-    }
+	public List<Student> listAll() {
+		ResponseEntity<PageableResponse<Student>> exchange = restTemplate.exchange("/", HttpMethod.GET, null,
+				new ParameterizedTypeReference<PageableResponse<Student>>() {
+				});
+		return exchange.getBody().getContent();
+	}
 
 	public Student save(Student student) {
 		ResponseEntity<Student> exchangePost = restTemplateAdmin.exchange("/", HttpMethod.POST,

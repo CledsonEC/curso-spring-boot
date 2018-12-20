@@ -1,5 +1,7 @@
 package br.com.devdojo.awesome.config;
 
+import static br.com.devdojo.awesome.config.SecurityConstants.SIGN_UP_URL;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,10 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
-
-import static br.com.devdojo.awesome.config.SecurityConstants.*;
 
 import br.com.devdojo.awesome.service.CustomUserDetailService;
 

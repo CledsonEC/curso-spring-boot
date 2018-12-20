@@ -14,20 +14,22 @@ public class AbstractEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
 	protected Long id;
-	 
+
 	@Override
 	public boolean equals(Object obj) {
-		if(this == obj) return true;
-		if(obj == null || getClass() != obj.getClass()) return false;
-		
+		if (this == obj)
+			return true;
+		if (obj == null || getClass() != obj.getClass())
+			return false;
+
 		AbstractEntity that = (AbstractEntity) obj;
-		
+
 		return id != null ? id.equals(that.id) : that.id == null;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		
+
 		return id != null ? id.hashCode() : 0;
 	}
 
@@ -38,5 +40,5 @@ public class AbstractEntity implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 }

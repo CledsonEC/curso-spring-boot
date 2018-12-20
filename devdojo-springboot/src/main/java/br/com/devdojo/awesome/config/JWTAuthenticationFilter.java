@@ -1,5 +1,10 @@
 package br.com.devdojo.awesome.config;
 
+import static br.com.devdojo.awesome.config.SecurityConstants.EXPIRATION_TIME;
+import static br.com.devdojo.awesome.config.SecurityConstants.HEADER_STRING;
+import static br.com.devdojo.awesome.config.SecurityConstants.SECRET;
+import static br.com.devdojo.awesome.config.SecurityConstants.TOKEN_PREFIX;
+
 import java.io.IOException;
 import java.util.Date;
 
@@ -17,7 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.devdojo.awesome.model.User;
-import static br.com.devdojo.awesome.config.SecurityConstants.*;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -32,30 +36,27 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
-		
+
 		try {
 			User user = new ObjectMapper().readValue(request.getInputStream(), User.class);
 			return this.authenticationManager
-						.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+					.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
-		
-		String username = ((org.springframework.security.core.userdetails.User) authResult.getPrincipal()).getUsername();
-		String token = Jwts.builder()
-				.setSubject(username)
+
+		String username = ((org.springframework.security.core.userdetails.User) authResult.getPrincipal())
+				.getUsername();
+		String token = Jwts.builder().setSubject(username)
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-				.signWith(SignatureAlgorithm.HS512, SECRET)
-				.compact();
+				.signWith(SignatureAlgorithm.HS512, SECRET).compact();
 		String bearerToken = TOKEN_PREFIX + token;
 		response.getWriter().write(bearerToken);
 		response.addHeader(HEADER_STRING, bearerToken);
-		
 	}
-	
 }
