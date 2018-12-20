@@ -42,14 +42,13 @@ public class StudentEndpoint {
 		return new ResponseEntity<>(studentDAO.findAll(pageable), HttpStatus.OK);
 	}
 
-	@GetMapping(path = "protected/students/{id}")
-	public ResponseEntity<?> getStudentById(@PathVariable("id") long id,
-				Authentication authentication) {
-		verifyIfStudentExists(id);
-		System.out.println(authentication);
-		Optional<Student> student = studentDAO.findById(id);
-		return new ResponseEntity<>(student, HttpStatus.OK);
-	}
+   @GetMapping(path = "protected/students/{id}")
+    public ResponseEntity<?> getStudentById(@PathVariable("id") Long id, Authentication authentication) {
+        System.out.println(authentication);
+        verifyIfStudentExists(id);
+        Student student = studentDAO.findById(id).get();
+        return new ResponseEntity<>(student, HttpStatus.OK);
+    }
 
 	@GetMapping(path = "protected/students/findByName/{name}")
 	public ResponseEntity<?> findStudentByName(@PathVariable String name) {
